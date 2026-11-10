@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: C/C++ CI DEBUG
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v3
@@ -19,4 +19,4 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: Galaxy S5 Mini Duos
-        path: ./workspace/bootpayload.bin
+        path: ./workspace/boot.img-kernel

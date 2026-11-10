@@ -40,6 +40,9 @@
 [Sources.Arm]
   Arm/ArmPlatformHelper.S    | GCC
 
+[BuildOptions.ARM]
+  GCC:*_*_*_CC_FLAGS = -Wno-dangling-pointer 
+
 [FixedPcd]
   gArmTokenSpaceGuid.PcdArmPrimaryCore
   gArmTokenSpaceGuid.PcdArmPrimaryCoreMask

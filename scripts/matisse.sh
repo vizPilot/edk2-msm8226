@@ -2,6 +2,8 @@
 # based on the instructions from edk2-platform
 set -e
 . ./scripts/build_common.sh
+python3 patch_gtdt.py MSM8909Pkg/AcpiTables/GTDT.aml
+python3 patch_acpi.py MSM8909Pkg/AcpiTables
 # not actually GCC5; it's GCC7 on Ubuntu 18.04.
 GCC5_ARM_PREFIX=arm-linux-gnueabi- build -j$(nproc) -s -n 0 -a ARM -t GCC5 -b DEBUG -p MSM8909Pkg/Devices/matisse.dsc
 ./scripts/build_bootshim.sh
