@@ -12,11 +12,11 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v6
     - name: CI Build
       run: chmod +x ci-build-debug.sh && ./ci-build-debug.sh
 
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v6
       with:
         name: Galaxy S5 Mini Duos
         path: ./workspace/boot.img-kernel
