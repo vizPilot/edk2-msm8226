@@ -488,21 +488,21 @@ PlatformRegisterSetupKey(
 )
 {
   EFI_STATUS                   Status;
-  EFI_INPUT_KEY                PowerBtn;
+  EFI_INPUT_KEY                HomeBtn;
   EFI_BOOT_MANAGER_LOAD_OPTION BootOption;
 
   //
   // Map Power to Boot Manager Menu
   //
-  PowerBtn.ScanCode    = SCAN_NULL;
-  PowerBtn.UnicodeChar = CHAR_CARRIAGE_RETURN;
+  HomeBtn.ScanCode    = SCAN_NULL;
+  HomeBtn.UnicodeChar = CHAR_CARRIAGE_RETURN;
   Status = EfiBootManagerGetBootManagerMenu(&BootOption);
   ASSERT_EFI_ERROR(Status);
   Status = EfiBootManagerAddKeyOptionVariable(
       NULL, 
       (UINT16) BootOption.OptionNumber, 
       0, 
-      &PowerBtn, 
+      &HomeBtn, 
       NULL
   );
   ASSERT (Status == EFI_SUCCESS || Status == EFI_ALREADY_STARTED);
@@ -667,7 +667,7 @@ PlatformBootManagerWaitCallback (
   Status = BootLogoUpdateProgress (
              White.Pixel,
              Black.Pixel,
-             L"Press Power Button for Setup Utility\n",
+             L"Press HOME Button for Setup Utility\n",
              White.Pixel,
              (Timeout - TimeoutRemain) * 100 / Timeout,
              0

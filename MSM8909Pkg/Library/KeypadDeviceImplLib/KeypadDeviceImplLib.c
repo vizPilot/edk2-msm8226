@@ -80,32 +80,46 @@ KeypadDeviceImplConstructor (
     KeypadInitializeKeyContextPrivate (KeyList[Index]);
   }
 
-  // Configure keys
-
-  // Vol Up (115) , Camera Splash (766) and Camera Focus (528)
-  // go through TLMM GPIO
+  // Configure keys for Galaxy S5 Mini DUOS (kmini3g)
+  // Vol Up (115)
   StaticContext = KeypadKeyCodeToKeyContext(115);
-  StaticContext->DeviceType = KEY_DEVICE_TYPE_PM8X41;
-  StaticContext->Gpio = 90;
-  StaticContext->ActiveLow = 0x0 & 0x0;
-  StaticContext->IsValid = FALSE;
+  StaticContext->DeviceType = KEY_DEVICE_TYPE_TLMM;
+  StaticContext->Gpio = 106;
+  StaticContext->ActiveLow = TRUE;
+  StaticContext->IsValid = TRUE;
 
-  // Vol Down (114) and Power On (116) on through PMIC PON
+  // Vol Down (114)
   StaticContext = KeypadKeyCodeToKeyContext(114);
-  StaticContext->DeviceType = KEY_DEVICE_TYPE_PM8X41_PON;
-  StaticContext->PonType = 1;
-  StaticContext->IsValid = FALSE;
+  StaticContext->DeviceType = KEY_DEVICE_TYPE_TLMM;
+  StaticContext->Gpio = 107;
+  StaticContext->ActiveLow = TRUE;
+  StaticContext->IsValid = TRUE;
 
+  // Home Key
   StaticContext = KeypadKeyCodeToKeyContext(116);
-  StaticContext->DeviceType = KEY_DEVICE_TYPE_PM8X41_PON;
-  StaticContext->PonType = 0;
-  StaticContext->IsValid = FALSE;
+  StaticContext->DeviceType = KEY_DEVICE_TYPE_TLMM;
+  StaticContext->Gpio = 108;
+  StaticContext->ActiveLow = TRUE;
+  StaticContext->IsValid = TRUE;
 
   return RETURN_SUCCESS;
 }
 
 EFI_STATUS EFIAPI KeypadDeviceImplReset (KEYPAD_DEVICE_PROTOCOL *This)
 {
+  UINTN  PinIndex;
+
+  // Make sure the key pins are plain GPIO inputs with a pull-up
+  if (gGpioTlmm != NULL) {
+    for (PinIndex = 0; PinIndex < ARRAY_SIZE(KeyList); PinIndex++) {
+      if (KeyList[PinIndex]->IsValid && KeyList[PinIndex]->DeviceType == KEY_DEVICE_TYPE_TLMM) {
+        gGpioTlmm->SetFunction(KeyList[PinIndex]->Gpio, 0);
+        gGpioTlmm->SetPull(KeyList[PinIndex]->Gpio, GPIO_PULL_UP);
+        gGpioTlmm->DirectionInput(KeyList[PinIndex]->Gpio);
+      }
+    }
+  }
+
   LibKeyInitializeKeyContext(&KeyContextPower.EfiKeyContext);
   KeyContextPower.EfiKeyContext.KeyData.Key.UnicodeChar = CHAR_CARRIAGE_RETURN;
 
