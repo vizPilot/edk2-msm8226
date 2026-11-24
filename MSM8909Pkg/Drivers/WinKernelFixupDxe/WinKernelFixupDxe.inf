@@ -1,0 +1,46 @@
+## @file
+#  Patches the loaded Windows RT kernel at ExitBootServices so it does not program the
+#  CP14 debug registers, which are fused off (UNDEFINED) on MSM8226/MSM8909.
+#
+#  Supports 6.2.8520.0 and 6.3.9600.17328 (Windows RT 8.1 free).
+#
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+##
+
+[Defines]
+  INF_VERSION                    = 0x0001001B
+  BASE_NAME                      = WinKernelFixupDxe
+  FILE_GUID                      = 4c6e2b1a-93d7-4f58-a0c2-7e15d8b39f64
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = WinKernelFixupDxeEntry
+
+[Sources]
+  WinKernelFixupDxe.c
+
+[Sources.ARM]
+  AsyncAbort.S
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MSM8909Pkg/MSM8909Pkg.dec
+
+[LibraryClasses]
+  BaseMemoryLib
+  CacheMaintenanceLib
+  DebugLib
+  MemoryAllocationLib
+  PcdLib
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+
+[FixedPcd]
+  gMSM8909PkgTokenSpaceGuid.PcdMipiFrameBufferAddress
+  gMSM8909PkgTokenSpaceGuid.PcdMipiFrameBufferWidth
+  gMSM8909PkgTokenSpaceGuid.PcdMipiFrameBufferHeight
+
+[Protocols]
+  gEfiCpuArchProtocolGuid
+
+[Depex]
+  gEfiCpuArchProtocolGuid

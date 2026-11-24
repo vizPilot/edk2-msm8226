@@ -194,6 +194,11 @@ READ_LOCK_STATUS   = TRUE
   INF MdeModulePkg/Universal/Acpi/BootGraphicsResourceTableDxe/BootGraphicsResourceTableDxe.inf
 
   #
+  # ntoskrnl fixup
+  #
+  INF MSM8909Pkg/Drivers/WinKernelFixupDxe/WinKernelFixupDxe.inf
+
+  #
   # SMBIOS Support
   #
   INF MSM8909Pkg/Drivers/SmBiosTableDxe/SmBiosTableDxe.inf

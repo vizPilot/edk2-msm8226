@@ -400,6 +400,11 @@
   MdeModulePkg/Universal/Acpi/BootGraphicsResourceTableDxe/BootGraphicsResourceTableDxe.inf
 
   #
+  # ntoskrnl fixup
+  #
+  MSM8909Pkg/Drivers/WinKernelFixupDxe/WinKernelFixupDxe.inf
+
+  #
   # SMBIOS Support
   #
   MSM8909Pkg/Drivers/SmBiosTableDxe/SmBiosTableDxe.inf
