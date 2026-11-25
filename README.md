@@ -42,6 +42,6 @@ SmemDxe driver is from Dominduchami's [Lumia830Pkg](https://github.com/Dominduch
 
 SmdRpmDxe driver is also from Dominduchami's [Lumia830Pkg](https://github.com/Dominduchami/Lumia830Pkg).
 
-ButtonsDxe driver is from sonic011gamer's [Lumia650Pkg](https://github.com/sonic011gamer/Lumia650Pkg).
+KeypadDeviceImplLib driver is from cat12300000's [edk2-msm8226-hl3gds](https://github.com/cat12300000/edk2-msm8226-hl3gds).
 
 SmBiosTableDxe driver is also from Dominduchami's [Lumia830Pkg](https://github.com/Dominduchami/Lumia830Pkg).
